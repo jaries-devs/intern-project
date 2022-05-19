@@ -22,7 +22,7 @@
     <div id="app">
     @guest
     @else
-    <div class="sidenav d-flex flex-column flex-shrink-0 p-3 bg-light position-absolute h-100" style="width: 280px;">
+    <div class="sidenav d-flex flex-column flex-shrink-0 p-3 bg-light " style="width: 280px;">
     <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
         <a href="{{ route('users.index') }}" class="nav-link link-dark">

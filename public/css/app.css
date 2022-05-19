@@ -11287,6 +11287,14 @@ textarea.form-control-lg {
   }
 }
 
+.sidenav {
+  height: 100vh;
+  position: fixed;
+}
+
 .sidenav ul li a i {
   width: 30px;
+}
+
+#app {
 }
