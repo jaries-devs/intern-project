@@ -33,10 +33,10 @@
         <td>{{ $permission->name }}</td>
         <td>
             <a class="btn btn-info" href="{{ route('permissions.show',$permission->id) }}">Show</a>
-                <a class="btn btn-primary" href="{{ route('permissions.edit',$permission->id) }}">Edit</a>
-                {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                {!! Form::close() !!}
+            <a class="btn btn-primary" href="{{ route('permissions.edit',$permission->id) }}">Edit</a>
+            {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
+                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+            {!! Form::close() !!}
         </td>
     </tr>
     @endforeach

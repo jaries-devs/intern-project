@@ -131,4 +131,24 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+
+    public function deactivate(Request $request)
+    {
+        $req = $request->all();
+
+        User::find($req['id'])->update(['isActive' => false]);
+
+        return redirect()->route('users.index')
+        ->with('success','User Deactivated Successfully');
+    }
+
+    public function activate(Request $request)
+    {
+        $req = $request->all();
+
+        User::find($req['id'])->update(['isActive' => true]);
+
+        return redirect()->route('users.index')
+        ->with('success','User Re-activated Successfully');
+    }
 }

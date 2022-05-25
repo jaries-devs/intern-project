@@ -20,7 +20,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Auth::routes();
@@ -33,4 +33,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products', ProductController::class);
     Route::resource('permissions', PermissionController::class);
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::post('/activate', [UserController::class, 'activate'])->name('activate');
+    Route::post('/deactivate', [UserController::class, 'deactivate'])->name('deactivate');
 });

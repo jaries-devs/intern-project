@@ -27,7 +27,7 @@
    <th>Name</th>
    <th>Email</th>
    <th>Roles</th>
-   <th width="280px">Action</th>
+   <th width="375px">Action</th>
  </tr>
  @foreach ($data as $key => $user)
   <tr>
@@ -47,6 +47,15 @@
         {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
+       @if (!$user->isActive)
+        {!! Form::open(['method' => 'POST','route' => ['activate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
+            {!! Form::submit('Re-activate', ['class' => 'btn btn-success']) !!}
+        {!! Form::close() !!}
+       @else
+        {!! Form::open(['method' => 'POST','route' => ['deactivate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
+            {!! Form::submit('Deactivate', ['class' => 'btn btn-success']) !!}
+        {!! Form::close() !!}
+       @endif
     </td>
   </tr>
  @endforeach
