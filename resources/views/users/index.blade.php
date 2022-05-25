@@ -24,16 +24,22 @@
 <table class="table table-bordered">
  <tr>
    <th>No</th>
-   <th>Name</th>
+   <th>First Name</th>
+   <th>Last Name</th>
+   <th>Address</th>
    <th>Email</th>
+   <th>Mobile Number</th>
    <th>Roles</th>
    <th width="280px">Action</th>
  </tr>
  @foreach ($data as $key => $user)
   <tr>
     <td>{{ ++$i }}</td>
-    <td>{{ $user->name }}</td>
+    <td>{{ $user->first_name }}</td>
+    <td>{{ $user->last_name }}</td>
+    <td>{{ $user->address}}</td>
     <td>{{ $user->email }}</td>
+    <td>{{ $user->mobile_number}}</td>
     <td>
       @if(!empty($user->getRoleNames()))
         @foreach($user->getRoleNames() as $v)
@@ -56,5 +62,4 @@
 {!! $data->render() !!}
 
 
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
 @endsection

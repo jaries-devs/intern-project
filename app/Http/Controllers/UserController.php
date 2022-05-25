@@ -43,9 +43,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'mobile_number' => 'required|digits:11',
+            'password' => 'required|same:confirm-password|string|min:8',
             'roles' => 'required'
         ]);
     
@@ -96,9 +99,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'mobile_number' => 'required|digits:11',
+            'password' => 'required|same:confirm-password|string|min:8',
             'roles' => 'required'
         ]);
     
@@ -131,4 +137,16 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+
+      /**
+     * Search
+     *
+     * @param  str  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return User::where('first_name', 'like', '%'.$name.'%')->get();
+    }
+
 }
