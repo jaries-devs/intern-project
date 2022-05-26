@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in! Welcome,') }}
+                    {{ __('Welcome to SeedIn Dashboard , ') }} {{Auth::user()->first_name}}
                 </div>
             </div>
         </div>

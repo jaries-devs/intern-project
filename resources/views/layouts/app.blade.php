@@ -35,7 +35,7 @@
         </li>
       @endcan
 
-      @can('user-list','user-create', 'user-edit', 'user-delete')
+      @can('user-access', 'user-list')
       <li class="nav-item">
         <a href="{{ route('users.index') }}" class="nav-link link-dark">
         <i class="fa-solid fa-user"></i>
@@ -44,7 +44,7 @@
       </li>
       @endcan
 
-      @can('role-list','role-create','role-edit', 'user-delete')
+      @can('role-access', 'role-list')
       <li class="nav-item">
         <a href="{{ route('roles.index') }}" class="nav-link link-dark">
         <i class="fa-solid fa-users-line"></i>
@@ -53,7 +53,7 @@
       </li>
       @endcan
 
-      @can('permission-list','permission-create','permission-edit', 'permission-delete')
+      @can('permission-access', 'permission-list')
       <li class="nav-item">
         <a href="{{ route('permissions.index') }}" class="nav-link link-dark">
         <i class="fa-solid fa-user-check"></i>
@@ -62,7 +62,7 @@
       </li>
       @endcan
 
-      @can('product-list','product-create','product-edit', 'product-delete')
+      @can('product-access', 'product-list')
       <li class="nav-item">
         <a href="{{ route('products.index') }}" class="nav-link link-dark">
         <i class="fa-solid fa-cart-shopping"></i>

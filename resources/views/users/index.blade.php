@@ -22,7 +22,10 @@
       <a class="btn btn-info" href="{{ route('users.index') }}" style="height: 40px;white-space: nowrap;"> Show All</a>
   </div>
   <div>
+    @can('user-create')
     <a class="btn btn-success" href="{{ route('users.create') }}" style="height: 40px;white-space: nowrap;"> Create New User</a>
+    @endcan
+  
 </div>
 </div>
 
@@ -62,20 +65,32 @@
       @endif
     </td>
     <td>
-       <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-       <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-        {!! Form::close() !!}
+
+  
+            <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
+
+        @can('user-edit')
+            <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+       @endcan
+
+       @can('user-delete')
+          {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+          {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+            {!! Form::close() !!}
+       @endcan
+      
+       @can('activate-access')
        @if (!$user->isActive)
-        {!! Form::open(['method' => 'POST','route' => ['activate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
-            {!! Form::submit('Re-activate', ['class' => 'btn btn-success']) !!}
-        {!! Form::close() !!}
-       @else
-        {!! Form::open(['method' => 'POST','route' => ['deactivate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
-            {!! Form::submit('Deactivate', ['class' => 'btn btn-success']) !!}
-        {!! Form::close() !!}
-       @endif
+       {!! Form::open(['method' => 'POST','route' => ['activate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
+           {!! Form::submit('Re-activate', ['class' => 'btn btn-success']) !!}
+       {!! Form::close() !!}
+      @else
+       {!! Form::open(['method' => 'POST','route' => ['deactivate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
+           {!! Form::submit('Deactivate', ['class' => 'btn btn-success']) !!}
+       {!! Form::close() !!}
+      @endif
+       @endcan
+      
     </td>
   </tr>
  @endforeach
