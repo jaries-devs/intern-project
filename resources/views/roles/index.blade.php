@@ -7,7 +7,7 @@
         <div class="pull-left">
             <h2>Role Management</h2>
         </div>
-        <div class="pull-right">
+        <div class="pull-right" style="float: right; margin-bottom: 10px;">
         @can('role-create')
             <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
             @endcan

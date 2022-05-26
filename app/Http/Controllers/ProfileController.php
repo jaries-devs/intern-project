@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 class ProfileController extends Controller
 {
     /**
@@ -24,12 +25,18 @@ class ProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
-
         return view('profile',compact('user'));
     }
 
-    public function update()
-    {
-        
+     public function update(Request $request, $id)
+        {
+            $input = $request->all();
+            $user = User::find($id);
+            $user->update($input);
+
+            return back()->with('success', 'Profile updated successfully!');
+            // return redirect()->route('profile.index')
+            //                 ->with('success','User updated successfully');
+        }
     }
-}
+

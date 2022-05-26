@@ -17,11 +17,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:user-create', ['only' => ['create','store']]);
+         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $data = User::search(request(key:'search'))->paginate(20);
+        return view('users.index', compact('data'))
+              ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -29,6 +36,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
@@ -98,27 +106,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'mobile_number' => 'required|digits:11',
-            'password' => 'required|same:confirm-password|string|min:8',
-            'roles' => 'required'
-        ]);
-    
         $input = $request->all();
-        if(!empty($input['password'])){ 
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));    
-        }
-    
         $user = User::find($id);
+
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
         $user->assignRole($request->input('roles'));
     
         return redirect()->route('users.index')
@@ -137,16 +129,25 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
-
-      /**
-     * Search
-     *
-     * @param  str  $name
-     * @return \Illuminate\Http\Response
-     */
-    public function search($name)
+    
+    public function deactivate(Request $request)
     {
-        return User::where('first_name', 'like', '%'.$name.'%')->get();
+        $req = $request->all();
+
+        User::find($req['id'])->update(['isActive' => false]);
+
+        return redirect()->route('users.index')
+        ->with('success','User Deactivated Successfully');
+    }
+
+    public function activate(Request $request)
+    {
+        $req = $request->all();
+
+        User::find($req['id'])->update(['isActive' => true]);
+
+        return redirect()->route('users.index')
+        ->with('success','User Re-activated Successfully');
     }
 
 }

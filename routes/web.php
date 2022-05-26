@@ -7,6 +7,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DashboardController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +27,24 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
     Route::resource('permissions', PermissionController::class);
-   Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::resource('profile', ProfileController::class);
+    Route::resource('dashboard', DashboardController::class);
+    Route::post('/activate', [UserController::class, 'activate'])->name('activate');
+    Route::post('/deactivate', [UserController::class, 'deactivate'])->name('deactivate');
+    Route::get('password', [ChangePasswordController::class, 'index']);
+    Route::post('password', [ChangePasswordController::class, 'changePassword'])->name('password'); 
 });
+
+
+
+

@@ -8,10 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Laravel\Scout\Searchable;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use Searchable, HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,7 @@ class User extends Authenticatable
         'address',
         'mobile_number',
         'password',
+        'isActive',
     ];
 
     /**
@@ -45,4 +48,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function toSearchableArray(){
+        return[
+            'first_name'=> $this->first_name,
+            'last_name'=> $this->last_name,
+            'email'=> $this->email,
+            'address'=> $this->address,
+            'mobile_number'=> $this->mobile_number,  
+        ];
+    }
 }

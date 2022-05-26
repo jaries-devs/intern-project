@@ -6,12 +6,26 @@
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Users Management</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
-        </div>
+        </div>  
     </div>
 </div>
+<div style="display:flex;margin-bottom: 20px;">
+  <div class="input-group">
+    {!! Form::open(['method' => 'GET','route' => ['users.index'],'style'=>'display:flex;margin: 0;', 'id'=>'search-form']) !!}               
+    <input type="text" name="search" class="input-search form-control" placeholder="Search">
+    <div class="input-group-append">
+      {!! Form::button('<i class="fa fa-search"></i>', ['type' => 'submit', 'class' => 'search btn btn-secondary', 'style'=>'height: 40px;']) !!}
+    </div>
+    {!! Form::close() !!}
+  </div>
+  <div>
+      <a class="btn btn-info" href="{{ route('users.index') }}" style="height: 40px;white-space: nowrap;"> Show All</a>
+  </div>
+  <div>
+    <a class="btn btn-success" href="{{ route('users.create') }}" style="height: 40px;white-space: nowrap;"> Create New User</a>
+</div>
+</div>
+
 
 
 @if ($message = Session::get('success'))
@@ -30,7 +44,7 @@
    <th>Email</th>
    <th>Mobile Number</th>
    <th>Roles</th>
-   <th width="280px">Action</th>
+   <th width="375px">Action</th>
  </tr>
  @foreach ($data as $key => $user)
   <tr>
@@ -53,6 +67,15 @@
         {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
+       @if (!$user->isActive)
+        {!! Form::open(['method' => 'POST','route' => ['activate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
+            {!! Form::submit('Re-activate', ['class' => 'btn btn-success']) !!}
+        {!! Form::close() !!}
+       @else
+        {!! Form::open(['method' => 'POST','route' => ['deactivate',  ['id' => $user->id]],'style'=>'display:inline']) !!}
+            {!! Form::submit('Deactivate', ['class' => 'btn btn-success']) !!}
+        {!! Form::close() !!}
+       @endif
     </td>
   </tr>
  @endforeach
