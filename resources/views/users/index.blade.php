@@ -66,7 +66,7 @@
     </td>
     <td>
 
-  
+        
             <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
 
         @can('user-edit')

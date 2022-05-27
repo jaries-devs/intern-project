@@ -1,7 +1,6 @@
 @extends('layouts.app')
-
-
 @section('content')
+
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -35,9 +34,11 @@
         <td>{{ $key+1 }}</td>
         <td>{{ $permission->name }}</td>
         <td>
-      
+       
+        
             <a class="btn btn-info" href="{{ route('permissions.show',$permission->id) }}">Show</a>
-      
+         
+
             @can('permission-edit')
             <a class="btn btn-primary" href="{{ route('permissions.edit',$permission->id) }}">Edit</a>
             @endcan
@@ -47,11 +48,14 @@
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
            {!! Form::close() !!} 
             @endcan
+       
+        
         
         </td>
     </tr>
     @endforeach
 </table>
+
 
 
 
