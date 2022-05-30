@@ -52,7 +52,7 @@
 </table>
 
 
-{!! $roles->render() !!}
-
+{{-- {!! $roles->render()-> !!} --}}
+{!! $roles->links('pagination::bootstrap-5') !!}
 
 @endsection

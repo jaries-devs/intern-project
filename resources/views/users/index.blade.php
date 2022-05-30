@@ -97,7 +97,8 @@
 </table>
 
 
-{!! $data->render() !!}
+{{-- {!! $data->render() !!} --}}
 
+{!! $data->links('pagination::bootstrap-5') !!}
 
 @endsection

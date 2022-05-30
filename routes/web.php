@@ -9,6 +9,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 
@@ -27,11 +29,14 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+// Route::group(['middleware' => ['can:roles-access']], function () {
+//     Route::resource('roles', RoleController::class);
+// });
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

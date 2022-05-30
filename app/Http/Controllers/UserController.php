@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-        $data = User::search(request(key:'search'))->paginate(20);
+        $data = User::search(request(key:'search'))->paginate(5);
         return view('users.index', compact('data'))
               ->with('i', ($request->input('page', 1) - 1) * 5);
     }

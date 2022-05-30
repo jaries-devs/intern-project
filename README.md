@@ -7,8 +7,22 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
 
+## System Features
+- Bootstrap Starter UI
+- Laravel
+- Login and Logout Module
+- User Registration
+- User Management: Admin Panel (CRUD)
+- User Activate/Deactivate Account
+- Search Function using Laravel Scout
+- Roles & Permission using Spatie
+- Role Management (CRUD)
+- Permission Management (CRUD)
+- Product Management (CRUD)
+- Profile Settings (Update User Information & Change Password)
+
+## About Laravel
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
